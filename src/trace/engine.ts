@@ -1,28 +1,14 @@
-import {
-  ColorMode,
-  Hierarchical,
-  PathSimplifyMode,
-  TracerConfig,
-  convertImageToSvg,
-  init,
-} from "wasm_vtracer";
+import type { TracerConfig } from "wasm_vtracer";
 import { InputError } from "../errors.js";
 import type { Raster, TraceMode } from "../image/types.js";
+import { ensureVtracerReady, type VtracerEngine } from "./load-vtracer.js";
 
-let ready = false;
-
-function ensureReady(): void {
-  if (ready) return;
-  init();
-  ready = true;
-}
-
-export function traceRaster(raster: Raster, mode: TraceMode): string {
-  ensureReady();
-  const config = new TracerConfig();
+export async function traceRaster(raster: Raster, mode: TraceMode): Promise<string> {
+  const engine = await ensureVtracerReady();
+  const config = new engine.TracerConfig();
   try {
-    applyPreset(config, mode);
-    const svg = convertImageToSvg(raster.data, raster.width, raster.height, config);
+    applyPreset(engine, config, mode);
+    const svg = engine.convertImageToSvg(raster.data, raster.width, raster.height, config);
     if (!svg.includes("<svg")) {
       throw new InputError(svg.trim() || "vtracer did not return an SVG.");
     }
@@ -36,19 +22,19 @@ export function traceRaster(raster: Raster, mode: TraceMode): string {
   }
 }
 
-function applyPreset(config: TracerConfig, mode: TraceMode): void {
+function applyPreset(engine: VtracerEngine, config: TracerConfig, mode: TraceMode): void {
   if (mode === "bw") {
     config.presetLineArt();
-    config.setColorMode(ColorMode.Color);
-    config.setPathSimplifyMode(PathSimplifyMode.Spline);
-    config.setHierarchical(Hierarchical.Cutout);
+    config.setColorMode(engine.ColorMode.Color);
+    config.setPathSimplifyMode(engine.PathSimplifyMode.Spline);
+    config.setHierarchical(engine.Hierarchical.Cutout);
     return;
   }
 
   config.presetPhoto();
-  config.setColorMode(ColorMode.Color);
-  config.setPathSimplifyMode(PathSimplifyMode.Spline);
-  config.setHierarchical(Hierarchical.Stacked);
+  config.setColorMode(engine.ColorMode.Color);
+  config.setPathSimplifyMode(engine.PathSimplifyMode.Spline);
+  config.setHierarchical(engine.Hierarchical.Stacked);
   config.setFilterSpeckle(4);
   config.setCornerThreshold(60);
   config.setLayerDifference(16);

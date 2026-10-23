@@ -41,7 +41,7 @@ export async function vectorizeImage(request: VectorizeRequest): Promise<CallToo
   const decoded = decodeImage(bytes);
   const scaled = limitLongEdge(decoded);
   const prepared = request.mode === "bw" ? binarizeOtsu(scaled) : scaled;
-  const traced = traceRaster(prepared, request.mode);
+  const traced = await traceRaster(prepared, request.mode);
   const svg = annotateSvg(request.mode === "bw" ? removeWhiteLayers(traced) : traced);
   const outputPath = resolveOutputPath(request.input, request.outputPath);
   await writeSvg(outputPath, svg);

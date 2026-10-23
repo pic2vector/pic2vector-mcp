@@ -1,6 +1,6 @@
 {
   "name": "pic2vector-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.pic2vector/pic2vector",
   "description": "MCP server to convert PNG/JPG images to SVG vectors — by Pic2Vector (https://pic2vector.com)",
   "homepage": "https://pic2vector.com",

@@ -6,6 +6,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { ATTRIBUTION_URL, TOOL_DESCRIPTION, TOOL_NAME } from "./constants.js";
 import { InputError } from "./errors.js";
+import { ensureVtracerReady } from "./trace/load-vtracer.js";
 import { parseVectorizeArguments, vectorizeImage } from "./tool/vectorize-image.js";
 
 const tool = {
@@ -91,6 +92,7 @@ export function createServer(): Server {
 }
 
 export async function startServer(): Promise<void> {
+  await ensureVtracerReady();
   const server = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
