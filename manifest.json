@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.4",
+  "name": "pic2vector",
+  "display_name": "Pic2Vector – Image to SVG",
+  "version": "1.0.1",
+  "description": "Convert PNG/JPG images to scalable SVG vectors from any MCP client, using the open-source vtracer engine. By Pic2Vector.",
+  "long_description": "See README. Free companion to https://pic2vector.com",
+  "author": {
+    "name": "Pic2Vector",
+    "url": "https://pic2vector.com"
+  },
+  "homepage": "https://pic2vector.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pic2vector/pic2vector-mcp"
+  },
+  "license": "MIT",
+  "keywords": ["svg", "vectorize", "image-to-svg", "png-to-svg", "vtracer"],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"]
+    }
+  },
+  "tools": [
+    {
+      "name": "vectorize_image",
+      "description": "Convert a PNG or JPG image to SVG (color or bw)."
+    }
+  ]
+}
