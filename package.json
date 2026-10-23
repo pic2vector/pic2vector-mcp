@@ -1,0 +1,62 @@
+{
+  "name": "pic2vector-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.pic2vector/pic2vector",
+  "description": "MCP server to convert PNG/JPG images to SVG vectors — by Pic2Vector (https://pic2vector.com)",
+  "homepage": "https://pic2vector.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pic2vector/pic2vector-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pic2vector/pic2vector-mcp/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "pic2vector-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "assets/demo.gif",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "svg",
+    "vector",
+    "vectorize",
+    "image-to-svg",
+    "png-to-svg",
+    "jpg-to-svg",
+    "vtracer",
+    "raster-to-vector",
+    "claude",
+    "cursor",
+    "pic2vector"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node -e \"import('node:fs').then(fs=>fs.chmodSync('dist/index.js',0o755))\"",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js",
+    "test": "npm run build && node tests/acceptance.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0",
+    "wasm_vtracer": "0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "@types/pngjs": "6.0.5",
+    "typescript": "5.9.3"
+  }
+}

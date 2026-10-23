@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pic2vector": {
+      "command": "npx",
+      "args": ["-y", "pic2vector-mcp"]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pic2vector/pic2vector",
+  "title": "Pic2Vector",
+  "description": "MCP server: convert PNG/JPG to SVG from Claude, Cursor & any MCP client. By Pic2Vector.",
+  "websiteUrl": "https://pic2vector.com",
+  "repository": {
+    "url": "https://github.com/pic2vector/pic2vector-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "pic2vector-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
